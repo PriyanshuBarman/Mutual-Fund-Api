@@ -8,12 +8,60 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model MutualFund {
-  id         Int    @id @default(autoincrement())
-  schemeCode Int    @unique
-  schemeName String
-  isin       String @unique
-  kuveraCode String
-
-  @@map("mutual_fund")
+model mutual_fund {
+  id                           Int     @id @default(autoincrement())
+  scheme_code                  Int     @unique
+  code                         String  @unique
+  name                         String
+  short_name                   String
+  exit_load                    String
+  lump_available               String
+  sip_available                String
+  lump_min                     Int
+  lump_min_additional          Int
+  lump_max                     BigInt
+  lump_multiplier              Int
+  sip_min                      Int
+  sip_max                      BigInt
+  sip_multiplier               Int
+  redemption_allowed           String
+  redemption_amount_multiple   Int
+  redemption_amount_minimum    Int
+  redemption_quantity_multiple Float
+  redemption_quantity_minimum  Float
+  category                     String
+  lock_in_period               Int
+  sip_maximum_gap              Int
+  fund_house                   String
+  fund_name                    String
+  short_code                   String
+  detail_info                  String
+  ISIN                         String  @unique
+  direct                       String
+  switch_allowed               String
+  stp_flag                     String
+  swp_flag                     String
+  instant                      String
+  reinvestment                 String
+  slug                         String
+  channel_partner_code         String
+  tax_period                   Int
+  insta_redeem_min_amount      Int
+  insta_redeem_max_amount      Int
+  small_screen_name            String
+  start_date                   String
+  face_value                   Int?
+  fund_type                    String
+  fund_category                String
+  plan                         String
+  expense_ratio                String?
+  expense_ratio_date           String?
+  fund_manager                 String
+  crisil_rating                String
+  investment_objective         String  @db.VarChar(1000)
+  portfolio_turnover           String?
+  maturity_type                String
+  aum                          Int
+  fund_rating                  Int?
+  fund_rating_date             String?
 }
