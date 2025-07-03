@@ -5,7 +5,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx nodemon server",
-    "start": "node server"
+    "start": "node server",
+    "postinstall": "prisma generate"
   },
   "type": "module",
   "keywords": [],
@@ -18,6 +19,8 @@
   "dependencies": {
     "@prisma/client": "^6.10.1",
     "axios": "^1.10.0",
+    "cors": "^2.8.5",
+    "dotenv": "^17.0.1",
     "express": "^5.1.0",
     "nodemon": "^3.1.10",
     "p-limit": "^6.2.0"
