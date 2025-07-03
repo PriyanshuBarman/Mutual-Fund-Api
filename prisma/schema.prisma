@@ -19,10 +19,10 @@ model mutual_fund {
   sip_available                String
   lump_min                     Int
   lump_min_additional          Int
-  lump_max                     BigInt
+  lump_max                     String
   lump_multiplier              Int
   sip_min                      Int
-  sip_max                      BigInt
+  sip_max                      String
   sip_multiplier               Int
   redemption_allowed           String
   redemption_amount_multiple   Int
@@ -64,4 +64,8 @@ model mutual_fund {
   aum                          Int
   fund_rating                  Int?
   fund_rating_date             String?
+
+  @@index([scheme_code])
+  @@index([code])
+  @@index([ISIN])
 }
