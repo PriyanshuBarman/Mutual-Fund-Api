@@ -65,7 +65,14 @@ model mutual_fund {
   fund_rating                  Int?
   fund_rating_date             String?
 
+  // ✅ NEW COLUMNS FOR NAV AND RETURNS DATA
+  returns        Json? // Stores return percentages object
+  nav            Json? // Latest NAV with date
+  last_nav       Json? // Previous NAV with date
+  nav_updated_at DateTime? // When NAV was last updated
+
   @@index([scheme_code])
   @@index([code])
   @@index([ISIN])
+  @@index([nav_updated_at])
 }
