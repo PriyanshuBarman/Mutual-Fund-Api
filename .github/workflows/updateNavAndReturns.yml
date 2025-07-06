@@ -1,0 +1,35 @@
+name: Update Mutual Fund NAV and Returns
+
+on:
+  schedule:
+    - cron: "30 18 * * *" # 12:00 AM IST
+    - cron: "30 19 * * *" # 1:00 AM IST
+    - cron: "00 20 * * *" # 1:30 AM IST
+    - cron: "30 20 * * *" # 2:00 AM IST
+  workflow_dispatch:
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: "npm"
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Generate Prisma client
+        run: npx prisma generate
+
+      - name: Update mutual fund NAV and returns
+        id: update-script
+        run: node scripts/updateNavAndReturns.js
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
