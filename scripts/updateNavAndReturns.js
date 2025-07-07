@@ -4,6 +4,7 @@ import { PrismaClient } from "../generated/prisma/index.js";
 import { calculateReturns } from "./utils/calculateReturns.js";
 import { createNavObjects } from "./utils/createNavObjects.js";
 import { getTodayDate } from "./utils/getTodayDate.js";
+import { parseDDMMYYYY } from "./utils/parseDDMMYYYY.js";
 
 const db = new PrismaClient();
 const today = getTodayDate();
@@ -37,12 +38,14 @@ async function updateNavAndReturns() {
         }
 
         // Skip if NAV date not updated (i.e., no new NAV)
-        if (navData[0].date === nav.date) return;
+        const apiNavDate = parseDDMMYYYY(navData[0].date);
+        const dbNavDate = parseDDMMYYYY(nav.date);
+        if (apiNavDate <= dbNavDate || !apiNavDate) return;
 
+        // Calculate & Update
         const returnsObject = calculateReturns(navData);
         const { navObject, lastNavObject } = createNavObjects(navData);
 
-        // Update
         await db.mutual_fund.update({
           where: { id },
           data: {
