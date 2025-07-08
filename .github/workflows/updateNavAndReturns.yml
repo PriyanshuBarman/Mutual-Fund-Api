@@ -4,8 +4,10 @@ on:
   schedule:
     - cron: "30 18 * * *" # 12:00 AM IST
     - cron: "30 19 * * *" # 1:00 AM IST
-    - cron: "00 20 * * *" # 1:30 AM IST
     - cron: "30 20 * * *" # 2:00 AM IST
+    - cron: "30 21 * * *" # 3:00 AM IST
+    - cron: "30 22 * * *" # 4:00 AM IST
+    - cron: "30 23 * * *" # 5:00 AM IST
   workflow_dispatch:
 
 jobs:
