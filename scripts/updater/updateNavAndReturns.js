@@ -1,6 +1,6 @@
 import axios from "axios";
 import pLimit from "p-limit";
-import { PrismaClient } from "../generated/prisma/index.js";
+import { PrismaClient } from "../../generated/prisma/index.js";
 import { calculateReturns } from "./utils/calculateReturns.js";
 import { createNavObjects } from "./utils/createNavObjects.js";
 import { getTodayDate } from "./utils/getTodayDate.js";

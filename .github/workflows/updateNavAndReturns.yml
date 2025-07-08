@@ -30,6 +30,6 @@ jobs:
 
       - name: Update mutual fund NAV and returns
         id: update-script
-        run: node scripts/updateNavAndReturns.js
+        run: node scripts/updater/updateNavAndReturns.js
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
