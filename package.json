@@ -6,7 +6,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "npx nodemon server",
     "start": "node server",
-    "postinstall": "prisma generate"
+    "postinstall": "prisma generate",
+    "syncnewfunds": "node scripts/syncNewFunds/index.js",
+    "update": "node scripts/updater/index.js"
   },
   "type": "module",
   "keywords": [],

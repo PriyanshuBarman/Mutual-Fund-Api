@@ -58,20 +58,34 @@ model mutual_fund {
   expense_ratio_date           String?
   fund_manager                 String
   crisil_rating                String
-  investment_objective         String  @db.VarChar(1000)
+  investment_objective         String? @db.VarChar(1000)
   portfolio_turnover           String?
   maturity_type                String
-  aum                          Int
+  aum                          Int?
   fund_rating                  Int?
   fund_rating_date             String?
 
-  returns    Json? 
-  nav        Json? 
-  last_nav   Json? 
-  updated_at DateTime? @db.Date 
+  returns    Json?
+  nav        Json?
+  last_nav   Json?
+  updated_at DateTime? @db.Date
 
   @@index([scheme_code])
   @@index([code])
   @@index([ISIN])
   @@index([updated_at])
+}
+
+model blacklisted_fund {
+  id            Int      @id @default(autoincrement())
+  scheme_code   Int      @unique
+  scheme_name   String
+  isin          String
+  reason        String
+  // first_failed  DateTime
+  // last_checked  DateTime
+  // failure_count Int      @default(1)
+  created_at    DateTime @default(now())
+  updated_at    DateTime @updatedAt
+
 }
