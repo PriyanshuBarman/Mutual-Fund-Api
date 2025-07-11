@@ -82,9 +82,6 @@ model blacklisted_fund {
   scheme_name   String
   isin          String
   reason        String
-  // first_failed  DateTime
-  // last_checked  DateTime
-  // failure_count Int      @default(1)
   created_at    DateTime @default(now())
   updated_at    DateTime @updatedAt
 
