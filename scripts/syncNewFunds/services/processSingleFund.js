@@ -48,5 +48,5 @@ export async function processSingleFund(fund) {
   }
 
   // Success!
-  console.log(`✅ Inserted: ${fund.schemeCode}`);
+  console.log(`✅ Inserted: ${kuveraFullData.name} , ISIN: ${kuveraFullData.ISIN}`);
 }

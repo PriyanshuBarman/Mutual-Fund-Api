@@ -14,7 +14,7 @@ model mutual_fund {
   code                         String  @unique
   name                         String
   short_name                   String
-  exit_load                    String
+  exit_load                    String?
   lump_available               String
   sip_available                String
   lump_min                     Int
@@ -74,15 +74,15 @@ model mutual_fund {
   @@index([code])
   @@index([ISIN])
   @@index([updated_at])
+  @@fulltext([name, short_name, fund_category, fund_name])
 }
 
 model blacklisted_fund {
-  id            Int      @id @default(autoincrement())
-  scheme_code   Int      @unique
-  scheme_name   String
-  isin          String
-  reason        String
-  created_at    DateTime @default(now())
-  updated_at    DateTime @updatedAt
-
+  id          Int      @id @default(autoincrement())
+  scheme_code Int      @unique
+  scheme_name String
+  isin        String
+  reason      String
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 }

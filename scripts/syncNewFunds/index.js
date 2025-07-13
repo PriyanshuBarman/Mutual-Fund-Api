@@ -4,7 +4,7 @@ import { loadBlacklist } from "./services/blacklistService.js";
 import { processSingleFund } from "./services/processSingleFund.js";
 import { getFilteredDirectFunds } from "./utils/getFilteredDirectFunds.js";
 
-const limit = pLimit(20);
+const limit = pLimit(4);
 
 // Single shared database instance
 export const db = new PrismaClient();
@@ -36,7 +36,7 @@ export async function syncNewMutualFunds() {
       return;
     }
 
-    console.log(`Found ${fundsToProcess.length} new funds to process.`);
+    console.log(`⭐ Found ${fundsToProcess.length} new funds to process.`);
 
     // Step 5: Process 4 funds concurrently
     await Promise.allSettled(fundsToProcess.map((fund) => limit(() => processSingleFund(fund))));

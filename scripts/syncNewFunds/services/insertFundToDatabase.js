@@ -2,7 +2,6 @@ import { db } from "../index.js";
 import { fetchExitLoad } from "../utils/fetchExitLoad.js";
 
 export async function insertFundToDatabase(originalFund, kuvera) {
-  
   try {
     const exit_load = await fetchExitLoad(kuvera.code);
 
@@ -11,8 +10,9 @@ export async function insertFundToDatabase(originalFund, kuvera) {
         scheme_code: originalFund.schemeCode,
         code: kuvera.code,
         name: kuvera.name,
+        small_screen_name: kuvera.small_screen_name.replace(" (G)", " Fund"),
         exit_load: exit_load,
-        short_name: kuvera.short_name + "Fund",
+        short_name: kuvera.short_name + " Fund",
         lump_available: kuvera.lump_available,
         sip_available: kuvera.sip_available,
         lump_min: kuvera.lump_min,
@@ -46,7 +46,6 @@ export async function insertFundToDatabase(originalFund, kuvera) {
         tax_period: kuvera.tax_period,
         insta_redeem_min_amount: kuvera.insta_redeem_min_amount,
         insta_redeem_max_amount: kuvera.insta_redeem_max_amount,
-        small_screen_name: kuvera.small_screen_name,
         start_date: kuvera.start_date,
         face_value: kuvera.face_value,
         fund_type: kuvera.fund_type,

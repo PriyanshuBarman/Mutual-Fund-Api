@@ -5,8 +5,10 @@ export const getFilteredDirectFunds = async () => {
 
   // Filter Active Direct Mutual Funds
   const filtered = data.filter(
-    (item) => item.isinGrowth !== null && item.isinGrowth !== undefined && item.schemeName.includes("Direct")
+    (item) =>
+      item.isinGrowth !== null && item.isinGrowth !== undefined && item.schemeName.toLowerCase().includes("direct")
   );
+  console.log("total funds", filtered.length);
 
   return filtered;
 };

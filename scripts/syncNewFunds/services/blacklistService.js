@@ -1,4 +1,3 @@
-// services/blacklistService.js
 import { db } from "../index.js";
 
 export async function loadBlacklist() {
@@ -13,7 +12,6 @@ export async function loadBlacklist() {
 
 export async function addToBlacklist(fund, errorMessage) {
   try {
-    // Create new blacklist entry
     await db.blacklisted_fund.create({
       data: {
         scheme_code: fund.schemeCode,
@@ -27,6 +25,7 @@ export async function addToBlacklist(fund, errorMessage) {
   }
 }
 
+// Not used in current script
 export async function getBlacklistStats() {
   try {
     const total = await db.blacklisted_fund.count();
