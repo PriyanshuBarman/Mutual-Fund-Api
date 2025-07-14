@@ -2,7 +2,6 @@ import axios from "axios";
 import pLimit from "p-limit";
 import { PrismaClient } from "../../generated/prisma/index.js";
 import { calculateReturns } from "./utils/calculateReturns.js";
-import { createNavObjects } from "./utils/createNavObjects.js";
 import { getTodayDate } from "./utils/getTodayDate.js";
 import { parseDDMMYYYY } from "./utils/parseDDMMYYYY.js";
 
@@ -17,7 +16,7 @@ async function updateNavAndReturns() {
       nav: true,
     },
     where: {
-      updated_at: { lt: today },
+      OR: [{ last_updated: { lt: today } }, { last_updated: null }],
     },
   });
 
@@ -44,13 +43,11 @@ async function updateNavAndReturns() {
 
         // Calculate & Update
         const returnsObject = calculateReturns(navData);
-        const { navObject, lastNavObject } = createNavObjects(navData);
 
         await db.mutual_fund.update({
           where: { id },
           data: {
-            nav: navObject,
-            last_nav: lastNavObject,
+            nav: { nav: navData[0].nav, date: navData[0].date },
             returns: returnsObject,
             updated_at: today,
           },

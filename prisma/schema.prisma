@@ -65,15 +65,20 @@ model mutual_fund {
   fund_rating                  Int?
   fund_rating_date             String?
 
-  returns    Json?
-  nav        Json?
-  last_nav   Json?
-  updated_at DateTime? @db.Date
+  return_1m              Float?
+  return_6m              Float?
+  return_1y              Float?
+  return_3y              Float?
+  return_5y              Float?
+  return_since_inception Float?
+
+  nav          Json?
+  last_updated DateTime? @db.Date
 
   @@index([scheme_code])
   @@index([code])
   @@index([ISIN])
-  @@index([updated_at])
+  @@index([last_updated])
   @@fulltext([name, short_name, fund_category, fund_name])
 }
 

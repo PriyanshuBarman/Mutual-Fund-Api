@@ -22,7 +22,12 @@ export const mergeComparisonArr = async (fund) => {
       expense_ratio: true,
       aum: true,
       ISIN: true,
-      returns: true,
+      return_1m: true,
+      return_6m: true,
+      return_1y: true,
+      return_3y: true,
+      return_5y: true,
+      return_since_inception: true,
     },
   });
 
