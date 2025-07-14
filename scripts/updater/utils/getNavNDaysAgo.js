@@ -1,5 +1,8 @@
+import { parseDDMMYYYY } from "./parseDDMMYYYY.js";
+
 export function getNavNDaysAgo(navData, daysAgo) {
-  const targetDate = new Date();
+  const latestNavDate = parseDDMMYYYY(navData[0].date);
+  const targetDate = new Date(latestNavDate);
   targetDate.setDate(targetDate.getDate() - daysAgo);
 
   // Loop from latest to oldest
