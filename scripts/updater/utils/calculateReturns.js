@@ -36,12 +36,12 @@ export function calculateReturns(navData) {
 
   //  Return formatted returns object
   return {
-    month_1: return_1m ? return_1m.toFixed(2) : null,
-    month_6: return_6m ? return_6m.toFixed(2) : null,
-    year_1: return_1y ? return_1y.toFixed(2) : null,
-    year_3: return_3y ? return_3y.toFixed(2) : null,
-    year_5: return_5y ? return_5y.toFixed(2) : null,
-    inception: return_inception ? return_inception.toFixed(2) : null,
+    month_1: return_1m ? parseFloat(return_1m.toFixed(2)) : null,
+    month_6: return_6m ? parseFloat(return_6m.toFixed(2)) : null,
+    year_1: return_1y ? parseFloat(return_1y.toFixed(2)) : null,
+    year_3: return_3y ? parseFloat(return_3y.toFixed(2)) : null,
+    year_5: return_5y ? parseFloat(return_5y.toFixed(2)) : null,
+    inception: return_inception ? parseFloat(return_inception.toFixed(2)) : null,
     date: today,
   };
 }

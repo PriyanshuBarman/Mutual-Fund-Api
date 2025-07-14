@@ -1,6 +1,7 @@
 import db from "../config/db.config.js";
-import asyncHandler from "../utils/asyncHandler.utils.js";
+import { mergeComparisonArr } from "../services/singleRetrieval.service.js";
 import ApiError from "../utils/apiError.utils.js";
+import asyncHandler from "../utils/asyncHandler.utils.js";
 
 export const getFundByISIN = asyncHandler(async (req, res) => {
   const { isin } = req.params;
@@ -13,7 +14,9 @@ export const getFundByISIN = asyncHandler(async (req, res) => {
 
   if (!fund) throw new ApiError(404, `Fund not found for ISIN: ${isin}`);
 
-  res.status(200).json({ success: true, fund });
+  const fullData = await mergeComparisonArr(fund);
+
+  res.status(200).json({ success: true, fund: fullData });
 });
 
 export const getFundByCode = asyncHandler(async (req, res) => {
@@ -27,7 +30,9 @@ export const getFundByCode = asyncHandler(async (req, res) => {
 
   if (!fund) throw new ApiError(404, `Fund not found for code: ${code}`);
 
-  res.status(200).json({ success: true, fund });
+  const fullData = await mergeComparisonArr(fund);
+
+  res.status(200).json({ success: true, fund: fullData });
 });
 
 export const getFundBySchemeCode = asyncHandler(async (req, res) => {
@@ -42,6 +47,8 @@ export const getFundBySchemeCode = asyncHandler(async (req, res) => {
   });
 
   if (!fund) throw new ApiError(404, `Fund not found for scheme code: ${schemeCode}`);
+  
+  const fullData = await mergeComparisonArr(fund);
 
-  res.status(200).json({ success: true, fund });
+  res.status(200).json({ success: true, fund: fullData });
 });

@@ -16,6 +16,7 @@ export const search = asyncHandler(async (req, res) => {
         { fund_name: { contains: firstTwoQueryWords } },
         { fund_category: { contains: firstTwoQueryWords } },
       ],
+      plan: "Growth",
     },
 
     orderBy: {

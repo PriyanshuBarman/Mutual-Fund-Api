@@ -53,5 +53,5 @@ export const getAMCs = asyncHandler(async (req, res) => {
 
   const amcs = Array.from(fundHouseMap.values());
 
-  res.status(200).json({ success: true, amcs });
+  res.status(200).json({ success: true, count: amcs.length, amcs });
 });
