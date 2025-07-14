@@ -11,7 +11,7 @@ export const getAMCs = asyncHandler(async (req, res) => {
       COUNT(*) as total_funds,
       MIN(fund_name) as fund_name
     FROM mutual_fund
-    GROUP BY fund_house, short_code
+    GROUP BY fund_house, short_code, detail_info
     ORDER BY fund_house ASC
   `;
 
