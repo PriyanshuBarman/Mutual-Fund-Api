@@ -18,7 +18,6 @@ export function getNavNDaysAgo(navData, daysAgo) {
       return {
         nav: navEntry.nav,
         date: navEntry.date,
-        actualDaysAgo: Math.floor((new Date() - entryDate) / (1000 * 60 * 60 * 24)),
       };
     }
   }

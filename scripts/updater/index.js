@@ -20,6 +20,8 @@ async function updateNavAndReturns() {
     },
   });
 
+  console.log("Funds to update:", allFunds.length);
+
   const failedFunds = [];
   let updatedCount = 0;
   const limit = pLimit(4);
@@ -38,7 +40,7 @@ async function updateNavAndReturns() {
 
         // Skip if NAV date not updated (i.e., no new NAV)
         const apiNavDate = parseDDMMYYYY(navData[0].date);
-        const dbNavDate = parseDDMMYYYY(nav.date);
+        const dbNavDate = parseDDMMYYYY(nav?.date);
         if (apiNavDate <= dbNavDate || !apiNavDate) return;
 
         // Calculate & Update
@@ -48,8 +50,8 @@ async function updateNavAndReturns() {
           where: { id },
           data: {
             nav: { nav: navData[0].nav, date: navData[0].date },
-            returns: returnsObject,
-            updated_at: today,
+            ...returnsObject,
+            last_updated: today,
           },
         });
 

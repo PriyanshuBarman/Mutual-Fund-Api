@@ -8,7 +8,6 @@ export const getFilteredDirectFunds = async () => {
     (item) =>
       item.isinGrowth !== null && item.isinGrowth !== undefined && item.schemeName.toLowerCase().includes("direct")
   );
-  console.log("total funds", filtered.length);
 
   return filtered;
 };
