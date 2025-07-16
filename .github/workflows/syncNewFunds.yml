@@ -2,7 +2,7 @@ name: syncNewFunds
 
 on:
   schedule:
-    - cron: "30 19 * * 0" # Run every Sunday at 1:00 AM IST
+    - cron: "30 19 * * 6" # Run every Sunday at 1:00 AM IST
   workflow_dispatch: # Allow manual trigger
 
 jobs:
