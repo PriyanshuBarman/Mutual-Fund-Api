@@ -1,12 +1,11 @@
 import axios from "axios";
 
-export async function searchKuvera(query) {
+export async function searchFund(query) {
   try {
     const { data } = await axios.get(`${process.env.SEARCH_API}${encodeURIComponent(query)}`);
-    // console.log(data?.data?.funds);
     return data?.data?.funds || [];
   } catch (error) {
-    console.error(`Kuvera search error:`, error.message);
+    console.error(`SearchApi error:`, error.message);
     return [];
   }
 }

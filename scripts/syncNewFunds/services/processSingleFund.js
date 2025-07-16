@@ -1,52 +1,46 @@
 import { findNAVMatch } from "../utils/findNAVMatch.js";
-import { getFullFundData } from "../utils/getFullFundData.js";
-import { getMFApiNAV } from "../utils/getMFApiNAV.js";
-import { searchKuvera } from "../utils/searchKuvera.js";
+import { fetchFullFundData } from "../utils/fetchFullFundData.js";
+import { fetchMFApiNAV } from "../utils/fetchMFApiNAV.js";
+import { searchFund } from "../utils/searchFund.js";
 import { validateISIN } from "../utils/validateISIN.js";
 import { addToBlacklist } from "./blacklistService.js";
 import { insertFundToDatabase } from "./insertFundToDatabase.js";
 
 export async function processSingleFund(fund) {
-  // 1: Get NAV from MF API
-  const mfNavData = await getMFApiNAV(fund.schemeCode);
-  if (!mfNavData) return;
+  try {
+    // 1: Get NAV from MF API
+    const mfNavData = await fetchMFApiNAV(fund.schemeCode);
 
-  // 2: Search Kuvera
-  const searchQuery = fund.schemeName.split("-")[0].trim();
-  const kuveraResults = await searchKuvera(searchQuery);
-  if (kuveraResults.length === 0) {
-    await addToBlacklist(fund, "No Kuvera search results");
-    return;
+    // 2: Search Fund on Search API
+    const searchQuery = fund.schemeName.split("-")[0].trim();
+    const searchResults = await searchFund(searchQuery);
+    if (searchResults.length === 0) {
+      await addToBlacklist(fund, "No Search API results");
+      return;
+    }
+
+    // 3: Find NAV match
+    const navMatch = findNAVMatch(searchResults, mfNavData.nav);
+    if (!navMatch) {
+      await addToBlacklist(fund, "NAV not matched");
+      return;
+    }
+
+    // 4: fetch full fund data
+    const fullFundData = await fetchFullFundData(navMatch.unique_fund_code);
+
+    // 5: Validate ISIN
+    const isValid = validateISIN(fund.isinGrowth, fullFundData.ISIN);
+    if (!isValid) {
+      await addToBlacklist(fund, `ISIN mismatch: ${fund.isinGrowth} != ${fullFundData.ISIN}`);
+      return;
+    }
+
+    // 6: Insert to database
+    await insertFundToDatabase(fund, fullFundData);
+
+    console.log(`✅ Inserted: ${fullFundData.name}, ISIN: ${fullFundData.ISIN}`);
+  } catch (error) {
+    console.error(`⚠️ Failed (will be retried): ${fund.schemeName} - ${error.message}`);
   }
-
-  // 3: Find NAV match
-  const navMatch = findNAVMatch(kuveraResults, mfNavData.nav);
-  if (!navMatch) {
-    await addToBlacklist(fund, "NAV not matched");
-    return;
-  }
-
-  // 4: Get full Kuvera data
-  const kuveraFullData = await getFullFundData(navMatch.unique_fund_code);
-  if (!kuveraFullData) {
-    await addToBlacklist(fund, "Failed to get Kuvera full data");
-    return;
-  }
-
-  // 5: Validate ISIN
-  const isValid = validateISIN(fund.isinGrowth, kuveraFullData.ISIN);
-  if (!isValid) {
-    await addToBlacklist(fund, `ISIN mismatch: ${fund.isinGrowth} != ${kuveraFullData.ISIN}`);
-    return;
-  }
-
-  // 6: Insert to database
-  const inserted = await insertFundToDatabase(fund, kuveraFullData);
-  if (!inserted) {
-    await addToBlacklist(fund, `Database insertion failed : ${fund.schemeCode}`);
-    return;
-  }
-
-  // Success!
-  console.log(`✅ Inserted: ${kuveraFullData.name} , ISIN: ${kuveraFullData.ISIN}`);
 }

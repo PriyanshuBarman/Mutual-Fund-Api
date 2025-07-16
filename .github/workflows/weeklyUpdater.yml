@@ -1,11 +1,8 @@
-name: Update Mutual Fund NAV and Returns
+name: Weekly Updater
 
 on:
   schedule:
-    - cron: "30 20 * * *" # 2:00 AM IST
-    - cron: "30 21 * * *" # 3:00 AM IST
-    - cron: "30 22 * * *" # 4:00 AM IST
-    - cron: "30 1 * * *" # 7:00 AM IST
+    - cron: "30 18 * * 0" # Run every Sunday at 12:00 AM IST
   workflow_dispatch: # Allow manual trigger
 
 jobs:
@@ -28,8 +25,9 @@ jobs:
       - name: Generate Prisma client
         run: npx prisma generate
 
-      - name: Update NAV and returns
+      - name: Weekly Updater
         id: update-script
-        run: npm run dailyupdater
+        run: npm run weeklyupdater
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          FULL_FUND_DATA_API: ${{ secrets.FULL_FUND_DATA_API }}
