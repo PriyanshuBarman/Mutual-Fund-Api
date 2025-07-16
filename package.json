@@ -8,7 +8,8 @@
     "start": "node server",
     "postinstall": "prisma generate",
     "syncnewfunds": "node scripts/syncNewFunds/index.js",
-    "update": "node scripts/updater/index.js"
+    "update": "node scripts/updater/index.js",
+    "weeklyupdate": "node scripts/weeklyUpdater/index.js"
   },
   "type": "module",
   "keywords": [],
