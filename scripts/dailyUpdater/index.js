@@ -29,7 +29,7 @@ async function dailyUpdater() {
 
         // Skip if NAV date not updated (i.e., no new NAV)
         const apiNavDate = parseDDMMYYYY(navData[0].date);
-        const dbNavDate = parseDDMMYYYY(nav?.date);
+        const dbNavDate = new Date(nav?.date);
         if (apiNavDate <= dbNavDate || !apiNavDate) return;
 
         // Calculate returns

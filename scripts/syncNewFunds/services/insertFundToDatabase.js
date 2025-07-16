@@ -61,6 +61,7 @@ export async function insertFundToDatabase(originalFund, fullFundData) {
         aum: fullFundData.aum,
         fund_rating: fullFundData.fund_rating,
         fund_rating_date: fullFundData.fund_rating_date,
+        nav: { nav: fullFundData.nav, date: new Date(nav.date) },
       },
     });
   } catch (error) {
