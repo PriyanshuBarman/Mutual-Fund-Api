@@ -5,8 +5,8 @@ export function calculateSimpleReturn(navData, days) {
   const start = getNavNDaysAgo(navData, days);
   if (!start) return null;
 
-  const percent = ((navData[0].nav - start.nav) / start.nav) * 100;
-  return parseFloat(percent.toFixed(2));
+  const percentage = ((navData[0].nav - start.nav) / start.nav) * 100;
+  return parseFloat(percentage.toFixed(2));
 }
 
 export function calculateCAGR(navData, year) {
@@ -18,8 +18,8 @@ export function calculateCAGR(navData, year) {
   const startNav = start.nav;
   if (!startNav || !latestNav || year <= 0) return null;
 
-  const percent = ((latestNav / startNav) ** (1 / year) - 1) * 100;
-  return parseFloat(percent.toFixed(2));
+  const percentage = ((latestNav / startNav) ** (1 / year) - 1) * 100;
+  return parseFloat(percentage.toFixed(2));
 }
 
 export function calculateSinceInceptionReturn(navData) {
@@ -27,21 +27,30 @@ export function calculateSinceInceptionReturn(navData) {
   const inceptionDate = parseDDMMYYYY(navData[navData.length - 1].date);
   const yearsSinceInception = (latestDate - inceptionDate) / (1000 * 60 * 60 * 24 * 365.25);
 
-  let percent;
+  let percentage;
 
   if (yearsSinceInception < 1) {
     // New fund: Calculate from estimated face value
     const currentNav = navData[0].nav;
     const estimatedFaceValue = Math.floor(navData[navData.length - 1].nav);
 
-    percent = ((currentNav - estimatedFaceValue) / estimatedFaceValue) * 100;
+    percentage = ((currentNav - estimatedFaceValue) / estimatedFaceValue) * 100;
   } else {
     // Mature fund: Use CAGR from actual inception
-    percent = calculateCAGR(navData, yearsSinceInception);
+    percentage = calculateCAGR(navData, yearsSinceInception);
 
     // If calculateCAGR already returned a formatted number, return it as is
-    if (percent !== null) return percent;
+    if (percentage !== null) return percentage;
   }
 
-  return percent !== null ? parseFloat(percent.toFixed(2)) : null;
+  return percentage !== null ? parseFloat(percentage.toFixed(2)) : null;
+}
+
+export function getDayChangePercent(navData) {
+  const latestNav = navData[0].nav;
+  const prevDayNav = navData[1].nav;
+
+  const percentage = ((latestNav - prevDayNav) / prevDayNav) * 100;
+
+  return parseFloat(percentage.toFixed(2));
 }

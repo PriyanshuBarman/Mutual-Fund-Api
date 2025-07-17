@@ -2,9 +2,10 @@ import axios from "axios";
 import pLimit from "p-limit";
 import db from "../config/db.js";
 import { getAllFunds } from "./services/getAllFunds.js";
+import { updateNavAndReturns } from "./services/updateNavAndReturns.js";
 import { getReturns } from "./utils/getReturns.js";
 import { parseDDMMYYYY } from "./utils/parseDDMMYYYY.js";
-import { updateNavAndReturns } from "./services/updateNavAndReturns.js";
+import { getDayChangePercent } from "./utils/returnCalculator.js";
 
 const limit = pLimit(4);
 
@@ -23,8 +24,7 @@ async function dailyUpdater() {
         const navData = data?.data;
 
         if (!Array.isArray(navData) || navData.length < 2) {
-          console.warn(`⚠️ Skipping ${scheme_code}: insufficient NAV data`);
-          failedCount++;
+          console.log(`⚠️ Skipping ${scheme_code}: insufficient NAV data`);
         }
 
         // Skip if NAV date not updated (i.e., no new NAV)
@@ -32,11 +32,12 @@ async function dailyUpdater() {
         const dbNavDate = new Date(nav?.date);
         if (apiNavDate <= dbNavDate || !apiNavDate) return;
 
-        // Calculate returns
+        // Get new return percentages & dayChangePercent
         const returnsObject = getReturns(navData);
+        const dayChangePercent = getDayChangePercent(navData);
 
         // Update database
-        await updateNavAndReturns(id, navData, returnsObject);
+        await updateNavAndReturns(id, navData, returnsObject, dayChangePercent);
 
         updatedCount++;
       } catch (error) {

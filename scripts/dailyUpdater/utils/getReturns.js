@@ -1,7 +1,7 @@
 import { calculateCAGR, calculateSimpleReturn, calculateSinceInceptionReturn } from "./returnCalculator.js";
 
 export function getReturns(navData) {
-  const return_1m = calculateSimpleReturn(navData, 31); // 1 month
+  const return_1m = calculateSimpleReturn(navData, 30); // 1 month
   const return_6m = calculateSimpleReturn(navData, 181); // 6 months
 
   const return_1y = calculateCAGR(navData, 1); // 1 year
