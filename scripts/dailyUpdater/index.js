@@ -54,7 +54,7 @@ async function dailyUpdater() {
   console.log(`❌ Failed: ${failedCount} funds`);
 
   await db.$disconnect();
-  failedCount === 0 ? process.exit(0) : process.exit(1);
+  process.exit(failedCount === 0 ? 0 : 1);
 }
 
 dailyUpdater().catch(async (error) => {
