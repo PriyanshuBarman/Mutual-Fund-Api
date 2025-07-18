@@ -7,7 +7,7 @@ import { getReturns } from "./utils/getReturns.js";
 import { parseDDMMYYYY } from "./utils/parseDDMMYYYY.js";
 import { getDayChangePercent } from "./utils/returnCalculator.js";
 
-const limit = pLimit(4);
+const limit = pLimit(50);
 
 async function dailyUpdater() {
   console.log("🚀 Daily Updater started..");
