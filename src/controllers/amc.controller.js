@@ -2,27 +2,27 @@ import db from "../config/db.config.js";
 import asyncHandler from "../utils/asyncHandler.utils.js";
 
 export const getAMCs = asyncHandler(async (req, res) => {
-  // Get all fund houses with counts in a single query
+  // Get all fund houses/AMCs with counts in a single query
   const fundHousesWithCounts = await db.$queryRaw`
     SELECT 
-      fund_house, 
+      amc_name, 
       short_code,
       detail_info,
       COUNT(*) as total_funds,
-      MIN(fund_name) as fund_name
+      MIN(amc_name) as amc_name
     FROM mutual_fund
-    GROUP BY fund_house, short_code, detail_info
-    ORDER BY fund_house ASC
+    GROUP BY amc_name, short_code, detail_info
+    ORDER BY amc_name ASC
   `;
 
   // Get all categories with counts in a single query
   const categoriesWithCounts = await db.$queryRaw`
     SELECT 
-      fund_house, 
+      amc_name, 
       category, 
       COUNT(*) as count 
     FROM mutual_fund 
-    GROUP BY fund_house, category
+    GROUP BY amc_name, category
   `;
 
   // Process the results
@@ -30,9 +30,8 @@ export const getAMCs = asyncHandler(async (req, res) => {
 
   // Initialize fund houses
   fundHousesWithCounts.forEach((fh) => {
-    fundHouseMap.set(fh.fund_house, {
-      fund_name: fh.fund_name,
-      fund_house: fh.fund_house,
+    fundHouseMap.set(fh.amc_name, {
+      amc_name: fh.amc_name,
       short_code: fh.short_code,
       detail_info: fh.detail_info,
       total_funds: Number(fh.total_funds),
@@ -42,7 +41,7 @@ export const getAMCs = asyncHandler(async (req, res) => {
 
   // Add categories
   categoriesWithCounts.forEach((cat) => {
-    const amc = fundHouseMap.get(cat.fund_house);
+    const amc = fundHouseMap.get(cat.amc_name);
     if (amc) {
       amc.categories.push({
         name: cat.category,

@@ -13,7 +13,6 @@ export function mapFullDataToDatabase(fullData) {
       fund_rating_date: fullData.fund_rating_date || null,
 
       // 🟢 Change Rarely
-      face_value: parseFloat(fullData.face_value) || 10,
       fund_manager: fullData.fund_manager || "",
       lump_available: fullData.lump_available || "N",
       sip_available: fullData.sip_available || "N",

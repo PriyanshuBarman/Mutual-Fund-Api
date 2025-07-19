@@ -30,8 +30,8 @@ export async function insertFundToDatabase(originalFund, fullFundData) {
         category: fullFundData.category,
         lock_in_period: fullFundData.lock_in_period,
         sip_maximum_gap: fullFundData.sip_maximum_gap,
-        fund_house: fullFundData.fund_house,
-        fund_name: fullFundData.fund_name,
+        amc_code: fullFundData.fund_house,
+        amc_name: fullFundData.fund_name,
         short_code: fullFundData.short_code,
         detail_info: fullFundData.detail_info,
         ISIN: fullFundData.ISIN,
@@ -65,6 +65,8 @@ export async function insertFundToDatabase(originalFund, fullFundData) {
       },
     });
   } catch (error) {
-    throw new Error(`Error inserting fund ${originalFund.schemeCode} into database: ${error.message}`);
+    throw new Error(
+      `Error inserting fund ${originalFund.schemeCode} into database: ${error.message}`
+    );
   }
 }
