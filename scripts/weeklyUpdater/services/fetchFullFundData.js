@@ -1,12 +1,10 @@
 import axios from "axios";
 
-export async function fetchFullFundData(fundCode, failedCount) {
+export const fetchFullFundData = async (fundCode) => {
   try {
     const { data } = await axios.get(`${process.env.FULL_FUND_DATA_API}${fundCode}.json`);
-    return data[0] || null;
+    return data[0];
   } catch (error) {
-    failedCount++;
-    console.error("Error At fetchFullFundData: ", error.message);
     throw new Error(`Error At fetchFullFundData: ${error.message}`);
   }
-}
+};

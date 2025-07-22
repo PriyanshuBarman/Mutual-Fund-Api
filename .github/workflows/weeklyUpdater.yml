@@ -6,7 +6,7 @@ on:
   workflow_dispatch: # Allow manual trigger
 
 jobs:
-  update-nav-and-returns:
+  weekly-updater:
     runs-on: ubuntu-latest
 
     steps:
