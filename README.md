@@ -1,107 +1,104 @@
-# Envest Helper - Mutual Fund API
+## A REST API for mutual fund data management and retrieval. Provides endpoints for searching, filtering, and accessing mutual fund information.
 
-A REST API for mutual fund data management and retrieval. Provides endpoints for searching, filtering, and accessing mutual fund information.
+
+
+## 📁 Project Structure
+
+- `src/` — Main API source code (routes, controllers, services, etc.)
+- `scripts/` — Automation scripts for data updates and management
+
+---
+
+## 📚 APIs
+
+- [🔍 Search API](#-search-api)
+- [📊 Filter API](#-filter-api)
+- [🏢 AMCs API](#-amcs-api)
+- [📂 Categories API](#-categories-api)
+- [🎯 Single Fund API](#-single-fund-api)
 
 **Base URL:** `http://localhost:3000/api/v1`
 
 ---
 
-## 📋 **API Endpoints**
+## 🔍 Search API
 
-### **🔍 Search Funds**
+**Endpoint:**  
+`GET /mutual-funds/search?query={search_term}&limit={number}`
 
-```
-GET /search?query={search_term}&limit={number}
-```
+**Description:**  
+Search for mutual funds by name, AMC, or category.
 
-Search mutual funds by name, fund house, or category.
+**Parameters:**
 
-**Example:** `/search?query=HDFC Equity&limit=10`
+- `query` (string, required): Search term (e.g., fund name, AMC, or category)
+- `limit` (number, optional): Maximum number of results (default: 5)
 
----
-
-### **📊 Filter Funds**
-
-```
-GET /funds?category={category}&fund_house={amc}&fund_rating_gte={number}&fund_rating_lte={number}&limit={number}
-```
-
-Filter funds by various criteria like category, fund house, ratings, etc.
-
-**Examples:**
-
-- `/funds?category=Equity&fund_house=HDFC&limit=20`
-- `/funds?fund_rating_gte=4&fund_rating_lte=5&limit=10`
+**Example:**  
+`/mutual-funds/search?query=HDFC&limit=10`
 
 ---
 
-### **🎯 Get Single Fund**
+## 📊 Filter API
 
-**By ISIN:**
+**Endpoint:**  
+`GET /mutual-funds?category={category}&amc_name={amc}&fund_rating_gte={min}&fund_rating_lte={max}&limit={number}`
 
-```
-GET /funds/isin/{isin_code}
-```
+**Description:**  
+Filter funds by category, AMC, rating, and more.
 
-**By Code:**
+**Parameters:**
 
-```
-GET /funds/code/{fund_code}
-```
+- `category` (string, optional): Fund category (e.g., Equity)
+- `amc_name` (string, optional): AMC name (e.g., HDFC Mutual Fund)
+- `fund_rating_gte` (number, optional): Minimum fund rating
+- `fund_rating_lte` (number, optional): Maximum fund rating
+- `limit` (number, optional): Maximum number of results
 
-**By Scheme Code:**
-
-```
-GET /funds/scheme_code/{scheme_code}
-```
-
----
-
-### **📂 Categories**
-
-```
-GET /categories
-```
-
-Get all available fund categories.
+**Example:**  
+`/mutual-funds?category=Equity&amc_name=HDFC Mutual Fund&limit=20`
 
 ---
 
-### **🏢 AMCs (Asset Management Companies)**
+## 🏢 AMCs API
 
-```
-GET /amc
-```
+**Endpoint:**  
+`GET /mutual-funds/amcs`
 
-Get all fund houses with their fund counts and categories.
-
----
-
-## 📁 **Project Structure**
-
-```
-src/
-├── config/          # Database and app configuration
-├── controllers/     # Request handlers and business logic
-├── middlewares/     # Error handling and request processing
-├── routes/          # API route definitions
-├── services/        # External service integrations
-└── utils/           # Helper functions and utilities
-```
+**Description:**  
+Get a list of all Asset Management Companies (AMCs) with their fund counts and categories.
 
 ---
 
-## 🛠️ **Tech Stack**
+## 📂 Categories API
 
-- **Framework:** Express.js
-- **Database:** PostgreSQL with Prisma ORM
-- **Language:** Node.js (ES6+ modules)
+**Endpoint:**  
+`GET /mutual-funds/categories`
+
+**Description:**  
+Get a list of all available fund categories and their subcategories.
 
 ---
 
-## 🤖 **Automation**
+## 🎯 Single Fund API
 
-This project includes automated scripts for data management:
+**By ISIN:**  
+`GET /mutual-funds/isin/{isin_code}`
+
+**By Code:**  
+`GET /mutual-funds/code/{fund_code}`
+
+**By Scheme Code:**  
+`GET /mutual-funds/scheme_code/{scheme_code}`
+
+**Description:**  
+Retrieve detailed information for a single fund using ISIN, internal code, or scheme code.
+
+---
+
+## 🤖 Automation
+
+This project includes automated scripts to ensure mutual fund database stays updated and accurate:
 
 - **Daily NAV and returns updates**
 - **Weekly fund details updates**
@@ -111,7 +108,7 @@ This project includes automated scripts for data management:
 
 ---
 
-## 📝 **Environment Variables**
+## 📝 Environment Variables
 
 ```env
 PORT=3000
@@ -119,7 +116,9 @@ DATABASE_URL=your_database_url
 FRONTEND_URL=http://localhost:5173
 ```
 
-## 🔧 **Scripts**
+---
+
+## 🔧 Scripts
 
 ```bash
 # Start development server
@@ -133,3 +132,5 @@ npm run dailyupdater
 npm run weeklyupdater
 npm run syncnewfunds
 ```
+
+---
