@@ -36,9 +36,9 @@ export async function weeklyUpdateFunds() {
 
     await Promise.allSettled(apiPromises);
 
-    // 5s delay after every batch
+    // 10s delay after every batch
     await new Promise((resolve) => {
-      setTimeout(resolve, 5000);
+      setTimeout(resolve, 10000);
     });
   }
 
