@@ -8,7 +8,7 @@ on:
   workflow_dispatch: # Allow manual trigger
 
 jobs:
-  update-nav-and-returns:
+  daily-updater:
     runs-on: ubuntu-latest
 
     steps:
@@ -27,7 +27,7 @@ jobs:
       - name: Generate Prisma client
         run: npx prisma generate
 
-      - name: Update NAV and returns
+      - name: Daily Updater
         id: update-script
         run: npm run dailyupdater
         env:

@@ -1,3 +1,3 @@
-export function validateISIN(originalISIN, kuveraISIN) {
-  return originalISIN === kuveraISIN;
+export function validateISIN(originalISIN, apiISIN) {
+  return originalISIN === apiISIN;
 }

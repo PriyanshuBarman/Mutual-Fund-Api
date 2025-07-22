@@ -13,8 +13,8 @@ export const buildWhereClause = (query) => {
       continue;
     }
 
-    // Multi-select for specific fields  (e.g.,fund_name= Tata mutual fund, Axis mutual fund)
-    if (key === "fund_name" || key === "fund_house") {
+    // Multi-select for specific fields  (e.g., amc_name= Tata mutual fund, Axis mutual fund)
+    if (key === "amc_name" || key === "amc_code") {
       where[key] = { in: value.split(",") };
       continue;
     }

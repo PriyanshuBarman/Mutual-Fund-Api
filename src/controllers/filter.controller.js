@@ -3,8 +3,9 @@ import asyncHandler from "../utils/asyncHandler.utils.js";
 import { buildWhereClause } from "../utils/buildWhereClause.utils.js";
 
 export const filterFunds = asyncHandler(async (req, res) => {
-  const whereCondition = buildWhereClause(req.query);
   const { sort_by = "fund_rating", order_by = "desc", limit } = req.query;
+
+  const whereCondition = buildWhereClause(req.query);
 
   const funds = await db.mutual_fund.findMany({
     where: whereCondition,
