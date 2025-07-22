@@ -13,7 +13,7 @@ export const search = asyncHandler(async (req, res) => {
       OR: [
         { name: { contains: firstTwoQueryWords } },
         { short_name: { contains: firstTwoQueryWords } },
-        { fund_name: { contains: firstTwoQueryWords } },
+        { amc_name: { contains: firstTwoQueryWords } },
         { fund_category: { contains: firstTwoQueryWords } },
       ],
       plan: "Growth",
@@ -21,7 +21,7 @@ export const search = asyncHandler(async (req, res) => {
 
     orderBy: {
       _relevance: {
-        fields: ["name", "short_name", "fund_name", "fund_category"],
+        fields: ["name", "short_name", "amc_name", "fund_category"],
         search: query,
         sort: "desc",
       },
@@ -35,7 +35,6 @@ export const search = asyncHandler(async (req, res) => {
       short_name: true,
       short_code: true,
       fund_category: true,
-      small_screen_name: true,
     },
 
     take: Number(limit),

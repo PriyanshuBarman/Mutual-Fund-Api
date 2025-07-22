@@ -51,7 +51,7 @@ export async function insertFundToDatabase(originalFund, fullFundData) {
         fund_type: fullFundData.fund_type,
         fund_category: fullFundData.fund_category,
         plan: fullFundData.plan,
-        expense_ratio: fullFundData.expense_ratio,
+        expense_ratio: parseFloat(fullFundData.expense_ratio),
         expense_ratio_date: fullFundData.expense_ratio_date,
         fund_manager: fullFundData.fund_manager,
         crisil_rating: fullFundData.crisil_rating,
@@ -61,12 +61,10 @@ export async function insertFundToDatabase(originalFund, fullFundData) {
         aum: fullFundData.aum,
         fund_rating: fullFundData.fund_rating,
         fund_rating_date: fullFundData.fund_rating_date,
-        nav: { nav: fullFundData.nav, date: new Date(nav.date) },
+        nav: { nav: fullFundData.nav.nav, date: new Date(fullFundData.nav.date) },
       },
     });
   } catch (error) {
-    throw new Error(
-      `Error inserting fund ${originalFund.schemeCode} into database: ${error.message}`
-    );
+    throw new Error(`Error inserting fund ${fullFundData.code} into database: ${error.message}`);
   }
 }

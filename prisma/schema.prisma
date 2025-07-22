@@ -32,8 +32,8 @@ model mutual_fund {
   category                     String
   lock_in_period               Int
   sip_maximum_gap              Int
-  amc_code                     String  
-  amc_name                     String  
+  amc_code                     String
+  amc_name                     String
   short_code                   String
   detail_info                  String
   ISIN                         String  @unique
@@ -54,7 +54,7 @@ model mutual_fund {
   fund_type                    String
   fund_category                String
   plan                         String
-  expense_ratio                String?
+  expense_ratio                Float?
   expense_ratio_date           String?
   fund_manager                 String
   crisil_rating                String

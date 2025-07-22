@@ -7,7 +7,7 @@ export const mergeComparisonArr = async (fund) => {
     where: {
       fund_category: fund.fund_category,
       category: fund.category,
-      code: { not: fund.code },
+      scheme_code: { not: fund.scheme_code },
       plan: fund.plan,
     },
     orderBy: {
@@ -17,7 +17,7 @@ export const mergeComparisonArr = async (fund) => {
     select: {
       name: true,
       short_name: true,
-      code: true,
+      scheme_code: true,
       fund_rating: true,
       expense_ratio: true,
       aum: true,
