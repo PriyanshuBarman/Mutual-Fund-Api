@@ -14,7 +14,7 @@ app.use(cors({ origin: allowOrigins, credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/v1", routes);
+app.use("/api/v1/mutual-funds", routes);
 
 app.use(notFoundHandler);
 app.use(globalErrorHandler);
