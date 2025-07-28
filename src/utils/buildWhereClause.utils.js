@@ -2,7 +2,7 @@ export const buildWhereClause = (query) => {
   const where = {};
 
   for (const [key, value] of Object.entries(query)) {
-    if (!value || ["sort_by", "order_by", "limit"].includes(key)) continue;
+    if (!value || ["sort_by", "order_by", "limit", "offset"].includes(key)) continue;
 
     if (key.endsWith("_gte")) {
       where[key.replace("_gte", "")] = { gte: Number(value) };
