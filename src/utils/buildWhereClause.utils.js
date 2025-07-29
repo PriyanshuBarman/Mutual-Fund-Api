@@ -12,6 +12,10 @@ export const buildWhereClause = (query) => {
       where[key.replace("_lte", "")] = { lte: Number(value) };
       continue;
     }
+    if (key.endsWith("_not")) {
+      where[key.replace("_not", "")] = { not: isNaN(value) ? value : Number(value) };
+      continue;
+    }
 
     // Multi-select for specific fields
     if (
