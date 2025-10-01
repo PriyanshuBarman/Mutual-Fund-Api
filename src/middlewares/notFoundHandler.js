@@ -1,5 +1,5 @@
 const notFoundHandler = (req, res) => {
-  res.status(404).send("Sorry, the page you are looking for does not exist.");
+  res.status(404).send("Endpoint not found, please check the URL.");
 };
 
 export default notFoundHandler;
