@@ -1,5 +1,5 @@
 import pLimit from "p-limit";
-import db from "../config/db.js";
+import db from "../../config/db.js";
 import { processSingleFund } from "./services/processSingleFund.js";
 import { fetchNewFunds } from "./services/fetchNewFunds.js";
 
@@ -13,7 +13,9 @@ export async function syncNewMutualFunds() {
 
     console.log(`🆕 ${newFunds.length} New funds found`);
 
-    const processNewFundPromises = newFunds.map((fund) => limit(() => processSingleFund(fund)));
+    const processNewFundPromises = newFunds.map((fund) =>
+      limit(() => processSingleFund(fund))
+    );
 
     await Promise.allSettled(processNewFundPromises);
 

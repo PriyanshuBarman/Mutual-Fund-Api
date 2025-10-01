@@ -1,6 +1,6 @@
 import axios from "axios";
 import pLimit from "p-limit";
-import db from "../config/db.js";
+import db from "../../config/db.js";
 import { getAllFunds } from "./services/getAllFunds.js";
 import { updateNavAndReturns } from "./services/updateNavAndReturns.js";
 import { getReturns } from "./utils/getReturns.js";
@@ -20,7 +20,9 @@ async function dailyUpdater() {
   const updatePromises = allFunds.map(({ id, scheme_code, nav }) =>
     limit(async () => {
       try {
-        const { data } = await axios.get(`https://api.mfapi.in/mf/${scheme_code}`);
+        const { data } = await axios.get(
+          `https://api.mfapi.in/mf/${scheme_code}`
+        );
         const navData = data?.data;
 
         if (!Array.isArray(navData) || navData.length < 2) {

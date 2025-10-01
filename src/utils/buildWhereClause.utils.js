@@ -2,7 +2,11 @@ export const buildWhereClause = (query) => {
   const where = {};
 
   for (const [key, value] of Object.entries(query)) {
-    if (!value || ["sort_by", "order_by", "limit", "offset"].includes(key)) continue;
+    if (
+      !value ||
+      ["sort_by", "order_by", "limit", "offset", "goldFunds"].includes(key)
+    )
+      continue;
 
     if (key.endsWith("_gte")) {
       where[key.replace("_gte", "")] = { gte: Number(value) };
@@ -13,7 +17,9 @@ export const buildWhereClause = (query) => {
       continue;
     }
     if (key.endsWith("_not")) {
-      where[key.replace("_not", "")] = { not: isNaN(value) ? value : Number(value) };
+      where[key.replace("_not", "")] = {
+        not: isNaN(value) ? value : Number(value),
+      };
       continue;
     }
 
@@ -31,6 +37,13 @@ export const buildWhereClause = (query) => {
 
     // Default: direct value
     where[key] = isNaN(value) ? value : Number(value);
+  }
+
+  // Gold funds
+  if (query.goldFunds) {
+    where.name = {
+      contains: "Gold",
+    };
   }
 
   return where;

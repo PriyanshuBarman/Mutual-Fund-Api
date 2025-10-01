@@ -1,5 +1,5 @@
 import pLimit from "p-limit";
-import db from "../../src/config/db.config.js";
+import db from "../../../config/db.js";
 
 const limit = pLimit(4);
 

@@ -1,4 +1,4 @@
-import db from "../config/db.js";
+import db from "../../config/db.js";
 import { fetchFullFundData } from "./services/fetchFullFundData.js";
 import { updateFundData } from "./services/updateFundData.js";
 import { mapFullDataToDatabase } from "./utils/dataMapper.js";

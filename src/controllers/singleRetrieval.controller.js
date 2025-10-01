@@ -1,4 +1,4 @@
-import db from "../config/db.config.js";
+import db from "../../config/db.js";
 import { mergeComparisonArr } from "../services/singleRetrieval.service.js";
 import ApiError from "../utils/apiError.utils.js";
 import asyncHandler from "../utils/asyncHandler.utils.js";

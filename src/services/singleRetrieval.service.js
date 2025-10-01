@@ -1,4 +1,4 @@
-import db from "../config/db.config.js";
+import db from "../../config/db.js";
 import { buildComparisonObject } from "../utils/buildComparisonObject.utils.js";
 
 export const mergeComparisonArr = async (fund) => {

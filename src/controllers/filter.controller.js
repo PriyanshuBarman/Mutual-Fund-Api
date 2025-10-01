@@ -1,4 +1,4 @@
-import db from "../config/db.config.js";
+import db from "../../config/db.js";
 import asyncHandler from "../utils/asyncHandler.utils.js";
 import { buildWhereClause } from "../utils/buildWhereClause.utils.js";
 

@@ -3,6 +3,6 @@ import { filterFunds } from "../controllers/filter.controller.js";
 
 const router = Router();
 
-router.get("/", filterFunds); // /api/v1/funds/filter?category=Equity&fund_house=HDFC
+router.get("/", filterFunds); // ?category=Equity&amc_name=HDFC Mutual Fund
 
 export default router;

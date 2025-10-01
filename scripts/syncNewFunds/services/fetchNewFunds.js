@@ -1,5 +1,5 @@
 import axios from "axios";
-import db from "../../config/db.js";
+import db from "../../../config/db.js";
 import { loadBlacklist } from "./blacklistService.js";
 
 export const fetchNewFunds = async () => {
@@ -10,7 +10,9 @@ export const fetchNewFunds = async () => {
     // Step 2: Filter Active Direct Mutual Funds
     const directFunds = data.filter(
       (item) =>
-        item.isinGrowth !== null && item.isinGrowth !== undefined && item.schemeName.toLowerCase().includes("direct")
+        item.isinGrowth !== null &&
+        item.isinGrowth !== undefined &&
+        item.schemeName.toLowerCase().includes("direct")
     );
 
     // Step 3: Get all existing funds from database
@@ -18,7 +20,9 @@ export const fetchNewFunds = async () => {
       select: { scheme_code: true },
     });
 
-    const existingSchemeCodes = new Set(existingFunds.map((f) => f.scheme_code));
+    const existingSchemeCodes = new Set(
+      existingFunds.map((f) => f.scheme_code)
+    );
 
     // Step 4: Load blacklist funds
     const blacklist = await loadBlacklist();
