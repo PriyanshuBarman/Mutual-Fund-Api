@@ -1,8 +1,9 @@
 import { Router } from "express";
-import { getAMCs } from "../controllers/amc.controller.js";
+import { getAmcFunds, getAMCs } from "../controllers/amc.controller.js";
 
 const router = Router();
 
-router.use("/", getAMCs);
+router.get("/", getAMCs);
+router.get("/:amcName", getAmcFunds);
 
 export default router;
