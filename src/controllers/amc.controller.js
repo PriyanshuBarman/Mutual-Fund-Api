@@ -4,14 +4,14 @@ import asyncHandler from "../utils/asyncHandler.utils.js";
 export const getAMCs = asyncHandler(async (req, res) => {
   const amcs = await db.$queryRaw`
   SELECT 
-    amc_code,
-    amc_name,
-    ANY_VALUE(detail_info) AS detail_info,
-    SUM(aum) AS aum,
-    COUNT(*) AS fundCount
+  amc_code,
+  ANY_VALUE(amc_name) AS amc_name,
+  ANY_VALUE(detail_info) AS detail_info,
+  SUM(aum) AS aum,
+  COUNT(*) AS fundCount
   FROM mutual_fund
-  GROUP BY amc_code, amc_name
-  ORDER BY aum DESC
+  GROUP BY amc_code
+  ORDER BY aum DESC;
 `;
 
   // Convert BigInt to Number
@@ -31,11 +31,11 @@ export const getAMCs = asyncHandler(async (req, res) => {
 });
 
 export const getAmcFunds = asyncHandler(async (req, res) => {
-  const { amcName } = req.params;
+  const { amcCode } = req.params;
 
   // 1. Fetch all funds for the AMC
   const funds = await db.mutual_fund.findMany({
-    where: { amc_name: amcName },
+    where: { amc_code: amcCode },
     select: {
       name: true,
       scheme_code: true,
@@ -67,7 +67,6 @@ export const getAmcFunds = asyncHandler(async (req, res) => {
 
   res.status(200).json({
     success: true,
-    amc: amcName,
     count: funds.length,
     categories,
   });

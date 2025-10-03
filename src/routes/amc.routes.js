@@ -4,6 +4,6 @@ import { getAmcFunds, getAMCs } from "../controllers/amc.controller.js";
 const router = Router();
 
 router.get("/", getAMCs);
-router.get("/:amcName", getAmcFunds);
+router.get("/:amcCode", getAmcFunds);
 
 export default router;
