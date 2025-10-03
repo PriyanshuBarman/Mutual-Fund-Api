@@ -31,4 +31,5 @@ jobs:
           EXIT_LOAD_API: ${{ secrets.EXIT_LOAD_API }}
           FULL_FUND_DATA_API: ${{ secrets.FULL_FUND_DATA_API }}
           SEARCH_API: ${{ secrets.SEARCH_API }}
+          MF_API_BASE_URL: ${{ secrets.MF_API_BASE_URL }}
         run: npm run syncnewfunds

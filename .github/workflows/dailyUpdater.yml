@@ -32,3 +32,4 @@ jobs:
         run: npm run dailyupdater
         env:
           DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          MF_API_BASE_URL: ${{ secrets.MF_API_BASE_URL }}

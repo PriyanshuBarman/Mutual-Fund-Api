@@ -5,14 +5,17 @@ import { loadBlacklist } from "./blacklistService.js";
 export const fetchNewFunds = async () => {
   try {
     // Step 1: Fetch all Mutual Funds
-    const { data } = await axios.get("https://api.mfapi.in/mf");
+    const { data } = await axios.get(process.env.MF_API_BASE_URL);
 
     // Step 2: Filter Active Direct Mutual Funds
     const directFunds = data.filter(
       (item) =>
+        item.schemeName.toLowerCase().includes("direct") &&
         item.isinGrowth !== null &&
         item.isinGrowth !== undefined &&
-        item.schemeName.toLowerCase().includes("direct")
+        !item.schemeName.toLowerCase().includes("idcw") &&
+        !item.schemeName.toLowerCase().includes("dividend") &&
+        !item.schemeName.toLowerCase().includes("regular")
     );
 
     // Step 3: Get all existing funds from database

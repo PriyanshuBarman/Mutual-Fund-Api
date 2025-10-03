@@ -21,7 +21,7 @@ async function dailyUpdater() {
     limit(async () => {
       try {
         const { data } = await axios.get(
-          `https://api.mfapi.in/mf/${scheme_code}`
+          `${process.env.MF_API_BASE_URL}/${scheme_code}`
         );
         const navData = data?.data;
 
