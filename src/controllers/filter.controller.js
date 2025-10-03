@@ -19,7 +19,7 @@ export const filterFunds = asyncHandler(async (req, res) => {
 
   const funds = await db.mutual_fund.findMany({
     where: {
-      whereCondition,
+      ...whereCondition,
     },
     orderBy: orderByClause,
     take,
@@ -28,7 +28,7 @@ export const filterFunds = asyncHandler(async (req, res) => {
 
   const totalCount = await db.mutual_fund.count({
     where: {
-      whereCondition,
+      ...whereCondition,
     },
   });
 
