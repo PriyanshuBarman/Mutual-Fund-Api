@@ -4,8 +4,6 @@ import { updateFundData } from "./services/updateFundData.js";
 import { mapFullDataToDatabase } from "./utils/dataMapper.js";
 
 export async function weeklyUpdateFunds() {
-  await db.$disconnect();
-
   console.log("🚀 Weekly Updater started..");
 
   const allFunds = await db.mutual_fund.findMany({

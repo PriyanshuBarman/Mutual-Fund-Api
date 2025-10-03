@@ -19,12 +19,7 @@ export const filterFunds = asyncHandler(async (req, res) => {
 
   const funds = await db.mutual_fund.findMany({
     where: {
-      AND: [
-        whereCondition,
-        {
-          OR: [{ sip_available: "Y" }, { lump_available: "Y" }],
-        },
-      ],
+      whereCondition,
     },
     orderBy: orderByClause,
     take,
@@ -33,12 +28,7 @@ export const filterFunds = asyncHandler(async (req, res) => {
 
   const totalCount = await db.mutual_fund.count({
     where: {
-      AND: [
-        whereCondition,
-        {
-          OR: [{ sip_available: "Y" }, { lump_available: "Y" }],
-        },
-      ],
+      whereCondition,
     },
   });
 

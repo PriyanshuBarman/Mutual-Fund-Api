@@ -2,7 +2,7 @@ name: Weekly Updater
 
 on:
   schedule:
-    - cron: "00 23 * * 6" # Run every Sunday at 4:30 AM IST
+    - cron: "00 20 * * 6" # Run every Sunday at 2:30 AM IST
   workflow_dispatch: # Allow manual trigger
 
 jobs:
