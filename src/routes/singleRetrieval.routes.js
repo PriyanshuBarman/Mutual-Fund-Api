@@ -1,5 +1,9 @@
 import { Router } from "express";
-import { getFundByISIN, getFundByCode, getFundBySchemeCode } from "../controllers/singleRetrieval.controller.js";
+import {
+  getFundByISIN,
+  getFundByCode,
+  getFundBySchemeCode,
+} from "../controllers/singleRetrieval.controller.js";
 
 const router = Router();
 

@@ -1,8 +1,12 @@
 import { Router } from "express";
-import { getCategories } from "../controllers/categories.controller.js";
+import {
+  getCategories,
+  getFundCategoryRank,
+} from "../controllers/categories.controller.js";
 
 const router = Router();
 
 router.get("/", getCategories);
+router.get("/:schemeCode", getFundCategoryRank);
 
 export default router;

@@ -7,19 +7,20 @@ export const getAMCs = asyncHandler(async (req, res) => {
   amc_code,
   ANY_VALUE(amc_name) AS amc_name,
   ANY_VALUE(detail_info) AS detail_info,
-  SUM(aum) AS aum,
+  SUM(aum) AS totalAUM,
   COUNT(*) AS fundCount
   FROM mutual_fund
   GROUP BY amc_code
-  ORDER BY aum DESC;
+  ORDER BY totalAUM DESC;
 `;
 
   // Convert BigInt to Number
-  const serializedAmcs = amcs.map((amc) => ({
+  const serializedAmcs = amcs.map((amc, index) => ({
+    rank: index + 1,
     amc_code: amc.amc_code,
     amc_name: amc.amc_name,
     detail_info: amc.detail_info,
-    aum: Number(amc.aum),
+    totalAUM: Number(amc.totalAUM),
     fundCount: Number(amc.fundCount),
   }));
 
