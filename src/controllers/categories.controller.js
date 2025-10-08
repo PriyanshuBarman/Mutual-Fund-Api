@@ -59,7 +59,7 @@ export const getFundCategoryRank = asyncHandler(async (req, res) => {
       "1Y": fund.return_1y,
       "3Y": fund.return_3y,
       "5Y": fund.return_5y,
-      ALL: fund.return_since_inception,
+      All: fund.return_since_inception,
     },
     category_average: {
       "1Y": categoryAvg._avg.return_1y ?? null,

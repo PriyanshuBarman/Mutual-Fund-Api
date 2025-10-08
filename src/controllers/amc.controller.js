@@ -7,11 +7,11 @@ export const getAMCs = asyncHandler(async (req, res) => {
   amc_code,
   ANY_VALUE(amc_name) AS amc_name,
   ANY_VALUE(detail_info) AS detail_info,
-  SUM(aum) AS totalAUM,
+  SUM(aum) AS totalAum,
   COUNT(*) AS fundCount
   FROM mutual_fund
   GROUP BY amc_code
-  ORDER BY totalAUM DESC;
+  ORDER BY totalAum DESC;
 `;
 
   // Convert BigInt to Number
@@ -20,7 +20,7 @@ export const getAMCs = asyncHandler(async (req, res) => {
     amc_code: amc.amc_code,
     amc_name: amc.amc_name,
     detail_info: amc.detail_info,
-    totalAUM: Number(amc.totalAUM),
+    totalAum: Number(amc.totalAum),
     fundCount: Number(amc.fundCount),
   }));
 
